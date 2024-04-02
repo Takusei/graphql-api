@@ -1,6 +1,6 @@
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
-import { typeDefs, resolvers } from './schema';
+import { typeDefs, resolvers } from './src/schema';
 
 const app = express();
 const PORT = 3000;

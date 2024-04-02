@@ -1,4 +1,5 @@
 import { gql } from 'apollo-server-express';
+import client from '../lib/client'
 
 export const typeDefs = gql`
   type Query {
@@ -31,7 +32,9 @@ export const typeDefs = gql`
 export const resolvers = {
   Query: {
     hello: () => 'Hello, GraphQL with Apollo!',
-    mansionList: () => {
+    mansionList: async () => {
+      const response = await client.search({});
+      console.log(response);
       return {
         mansions: [
           {
