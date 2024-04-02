@@ -2,10 +2,6 @@ import { gql } from 'apollo-server-express';
 import client from '../lib/client'
 
 export const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-
   type mansion {
     category: String
     name: String
@@ -31,27 +27,33 @@ export const typeDefs = gql`
 
 export const resolvers = {
   Query: {
-    hello: () => 'Hello, GraphQL with Apollo!',
-    mansionList: async () => {
-      const response = await client.search({});
-      console.log(response);
-      return {
-        mansions: [
-          {
-            category: 'マンション',
-            name: 'ハイネスハイツ',
-            address: '東京都渋谷区代々木',
-            station: '代々木駅',
-            description: '代々木公園に隣接する好立地',
-            image: 'https://example.com/image.jpg',
-            url: 'https://example.com/',
-            price: '1,000万円',
-            size: '50m²',
-            age: '築10年',
-            updateDate: '2021-01-01',
-          },
-        ],
-      }
+    mansionList: async (_: any, { name }: { name: string }) => {
+      const response = await client.search({
+        index: 'suumo-2024.03.29',
+        body: {
+          query: {
+            match: {
+              name: name
+            }
+          }
+        }
+      });
+      
+      const mansions = response.hits.hits.map((hit: any) => ({
+        category: hit._source.category,
+        name: hit._source.name,
+        address: hit._source.address,
+        station: hit._source.station,
+        description: hit._source.description,
+        image: hit._source.image,
+        url: hit._source.url,
+        price: hit._source.price,
+        size: hit._source.size,
+        age: hit._source.age,
+        updateDate: hit._source.updateDate,
+      }));
+    
+      return { mansions };
     }
   }
 };
