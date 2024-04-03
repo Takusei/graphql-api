@@ -1,5 +1,6 @@
 import { gql } from 'apollo-server-express';
 import client from '../lib/client'
+import getUniqueValues from '../lib/unique'
 
 export const typeDefs = gql`
   type mansion {
@@ -17,6 +18,7 @@ export const typeDefs = gql`
   }
 
   type mansionList {
+    names: [String]
     mansions: [mansion]
   }
 
@@ -52,8 +54,10 @@ export const resolvers = {
         age: hit._source.age,
         updateDate: hit._source.updateDate,
       }));
-    
-      return { mansions };
+      
+      const uniqueMansions = getUniqueValues(mansions.map(mansion => mansion.name));
+
+      return { names: uniqueMansions, mansions: mansions };
     }
   }
 };
