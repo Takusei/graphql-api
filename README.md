@@ -6,7 +6,7 @@ npm i
 
 npm run start
 
-# then access http://localhost:3000/graphql to test the graphQL 
+# then access http://localhost:9000/graphql to test the graphQL 
 
 ```
 
@@ -14,7 +14,7 @@ npm run start
 ```
 ~ ❯ curl --request POST \                                                                            
     --header 'content-type: application/json' \
-    --url http://localhost:3000/graphql \
+    --url http://localhost:9000/graphql \
     --data '{"query":"query($name: String) {\n  mansionList(name: $name) {\n    names\n    mansions {\n      category\n      name\n      address\n      station\n      description\n      image\n      url\n      price\n      size\n      age\n      updateDate\n    }\n  }\n}","variables":{"name":"旗の台スカイ"}}' | jq
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed

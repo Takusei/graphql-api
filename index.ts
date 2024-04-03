@@ -3,7 +3,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { typeDefs, resolvers } from './src/schema';
 
 const app = express();
-const PORT = 3000;
+const PORT = 9000;
 
 const server = new ApolloServer({ typeDefs, resolvers });
 

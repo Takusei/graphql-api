@@ -6,5 +6,5 @@ RUN chown node:node package*.json
 USER node
 RUN npm install
 COPY --chown=node:node . .
-EXPOSE 3000
+EXPOSE 9000
 CMD [ "npm", "run", "start" ]
