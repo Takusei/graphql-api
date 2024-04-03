@@ -1,6 +1,11 @@
 # graphql-api
 
-How to curl elastic search?
+## Start
 ```
-curl -u elastic:password -k https://localhost:9200 
+npm i
+
+npm run start
+
+# then access http://localhost:3000/graphql to test the graphQL 
+
 ```
